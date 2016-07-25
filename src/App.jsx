@@ -1,40 +1,75 @@
 import React, {Component} from 'react';
 
+class File extends Component {
 
+  render(){
 
-// class App extends Component {
-  // render() {
-  //   return (
-  //     <h1>Hello React :)</h1>
-  //   );
-  // }
-  var TreeNode = React.createClass({
-    getInitialState: function() {
-      return {
-        visible: true
-      };
-    },
-    render: function() {
-      var children;
-      if (this.props.node.children != null) {
-        children = this.props.node.children.map(function(node, index) {
-          return <li className="folder-wrapper" ><TreeNode node={node} /></li>
-        });
-      }
+    return(
+        <li className='file-item'>{this.props.name}</li>
+    );
+  }
+}
+class Folder extends Component {
 
-      return (
-          <div>
-            <li className={(this.props.node.type==='file'? 'file-item':'folder-item')}>
-              {this.props.node.name}
-            </li>
-            <ul >{children}</ul>
-          </div>
-      );
+  render(){
+
+    return(
+        <li className='folder-item'>{this.props.name}</li>
+    );
+  }
+}
+class Input extends Component{
+  handleChange(event) {
+    console.log(this.state.value);
+}
+  getInitialState() {
+  return {value: ''};
+}
+  render(){
+
+    return (
+      <input
+          type="text"
+          placeholder="filter..."
+          valueLink={this.linkState('value')}
+          onChange={this.handleChange}
+      />
+    );
+  }
+}
+class FolderContainer extends Component {
+  render() {
+    const items = this.props.data;
+    let folderItems = [];
+    for(let i=0;i<items.length;i++) {
+          if(items[i].type === 'dir') {
+            folderItems.push(<Folder name={items[i].name} />);
+          } else {
+            folderItems.push(
+                <File name={items[i].name} />
+            );
+          }
+          if(items[i].children) {
+            folderItems.push(<FolderContainer  data={items[i].children}/>);
+          }
     }
-  });
+    return (
+        <ul>
+          {folderItems}
+        </ul>
+    );
+  }
+}
+class App extends Component {
+  render() {
+    return (
+        <div className="widget">
+          <Input />
+          <div>{ this.props.value ? 'Searching for:' + this.props.value : null }</div>
+          <FolderContainer data={this.props.data} />
+        </div>
+    );
+  }
+}
 
-
-
-
-//}
-export default TreeNode;
+export default App;
