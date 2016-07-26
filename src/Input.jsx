@@ -1,5 +1,5 @@
 import React from 'react';
-class Input extends React.Component{
+export default class Input extends React.Component{
     render(){
         return(
             <div className="widget" onChange={this.props.handleChange}>
@@ -11,4 +11,3 @@ class Input extends React.Component{
         );
     }
 }
-export default Input;

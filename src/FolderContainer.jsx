@@ -2,7 +2,7 @@ import React from 'react';
 import File from './File.jsx';
 import Folder from './Folder.jsx';
 
-class FolderContainer extends React.Component {
+export default class FolderContainer extends React.Component {
 
     render() {
         const items = this.props.data;
@@ -28,4 +28,3 @@ class FolderContainer extends React.Component {
         );
     }
 }
-export default FolderContainer;

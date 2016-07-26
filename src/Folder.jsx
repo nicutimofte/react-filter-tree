@@ -1,5 +1,5 @@
 import React from 'react';
-class Folder extends React.Component {
+export default class Folder extends React.Component {
     render=()=>{
 
         return (
@@ -7,4 +7,3 @@ class Folder extends React.Component {
         );
     };
 }
-export default Folder;

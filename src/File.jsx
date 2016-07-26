@@ -1,5 +1,5 @@
 import React from 'react';
-class File extends React.Component {
+export default class File extends React.Component {
 
     render() {
 
@@ -8,4 +8,3 @@ class File extends React.Component {
         );
     }
 }
-export default File;

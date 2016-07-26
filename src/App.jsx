@@ -1,61 +1,8 @@
 import React, {Component} from 'react';
+import FolderContainer from './FolderContainer.jsx';
+import Input from './Input.jsx';
 
-class File extends Component {
 
-    render() {
-
-        return (
-            <li className='file-item'>{this.props.name}</li>
-        );
-    }
-}
-class Folder extends Component {
-    render=()=>{
-
-        return (
-            <li className='folder-item'>{this.props.name}</li>
-        );
-    };
-}
-class FolderContainer extends Component {
-
-    render() {
-        const items = this.props.data;
-        let folderItems = [];
-        let index=0;
-        for (let i = 0; i < items.length; i++) {
-            if (items[i].type === 'dir') {
-                folderItems.push(<Folder key={index++} name={items[i].name}/>);
-            } else {
-                folderItems.push(
-                    <File key={index++} name={items[i].name}/>
-                );
-            }
-            if (items[i].children) {
-                folderItems.push(<FolderContainer key={index++} data={items[i].children}/>);
-            }
-        }
-
-        return (
-            <ul>
-                {folderItems}
-            </ul>
-        );
-    }
-}
-
-class Input extends Component{
-    render(){
-        return(
-            <div className="widget" onChange={this.props.handleChange}>
-              <input
-                    type="text"
-                   placeholder="filter..."
-              />
-            </div>
-        );
-    }
-}
 class App extends Component {
     constructor(props) {
         super(props);
@@ -83,6 +30,9 @@ class App extends Component {
     };
 
     handleInput=(event) =>{
+        this.state={
+            value:event.target.value
+        };
         this.setState({data: this.transformJSON(this.props.data,event.target.value)});
     };
 
@@ -90,7 +40,7 @@ class App extends Component {
         return (
             <div className="widget">
                 <Input handleChange={this.handleInput}/>
-
+                <div>{this.state.value? ("Searching for:"+this.state.value):null}</div>
                 <FolderContainer data={this.state.data}/>
             </div>
         );
