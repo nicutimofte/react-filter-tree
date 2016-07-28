@@ -1,4 +1,4 @@
-React Boilerplate
+React directory tree filter 
 =====================
 
 Install the dependencies and start the server.
